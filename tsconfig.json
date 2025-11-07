@@ -4,6 +4,7 @@
     "paths": {
       "@borndotcom/react-native-godot": ["./js/index"]
     },
+    "allowJs": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
