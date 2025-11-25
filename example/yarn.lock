@@ -2713,7 +2713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/cli@npm:^20.0.0":
+"@react-native-community/cli@npm:latest":
   version: 20.0.2
   resolution: "@react-native-community/cli@npm:20.0.2"
   dependencies:
@@ -3444,7 +3444,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.25.3"
     "@babel/runtime": "npm:^7.25.0"
     "@borndotcom/react-native-godot": "portal:../"
-    "@react-native-community/cli": "npm:^20.0.0"
+    "@react-native-community/cli": "npm:latest"
     "@react-native-community/cli-platform-android": "npm:^20.0.0"
     "@react-native-community/cli-platform-ios": "npm:^20.0.0"
     "@react-native/babel-preset": "npm:^0.81.0"

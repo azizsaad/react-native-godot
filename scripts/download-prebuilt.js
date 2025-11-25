@@ -73,7 +73,7 @@ function downloadFile(url, destPath) {
       }
     }
 
-    execFile("curl", ["-L", "-o", destPath, url], (error) => {
+    execFile("curl", ["-L", "-k", "-o", destPath, url], (error) => {
       if (error) {
         // Clean up partial download
         if (fs.existsSync(destPath)) {

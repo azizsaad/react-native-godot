@@ -1,4 +1,23 @@
-require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+expo_package_path = Pod::Executable.execute_command(
+  'node',
+  ['-p', <<-'NODE', __dir__]
+(() => {
+  try {
+    return require.resolve("expo/package.json", { paths: [process.argv[1]] });
+  } catch (e) {
+    return "";
+  }
+})()
+NODE
+).strip
+
+expo_autolinking_enabled = false
+if !expo_package_path.empty?
+  require File.join(File.dirname(expo_package_path), "scripts/autolinking")
+  expo_autolinking_enabled = true
+else
+  Pod::UI.warn "Expo package not found; skipping Expo autolinking.".yellow
+end
 
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
@@ -19,16 +38,17 @@ end
 
 
 target 'GodotTest' do
-  # Expo
-  use_expo_modules!
-  post_integrate do |installer|
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
+  if expo_autolinking_enabled
+    use_expo_modules!
+    post_integrate do |installer|
+      begin
+        expo_patch_react_imports!(installer)
+      rescue => e
+        Pod::UI.warn e
+      end
     end
   end
-  
+
   config = use_native_modules!
 
   use_react_native!(
